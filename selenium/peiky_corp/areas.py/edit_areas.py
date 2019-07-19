@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 
-peiky = webdriver.Chrome(executable_path=r"/home/omar/Escritorio/driver/chromedriver")
+peiky = webdriver.Chrome(executable_path=r"/home/omar/Escritorio/chromedriver")
 peiky.get("https://qa.peiky.com:9083/login")
 
 login = peiky.find_element_by_name("email")
@@ -38,7 +38,7 @@ peiky.find_element_by_css_selector("#menu-areas").click()
 search = peiky.find_element_by_xpath("//input[@type = 'search']")
 search.send_keys("selenium prueba")
 
-time.sleep(2) 
+time.sleep(2)
 
 # search_edit = peiky.find_element_by_xpath("//input[@type = 'search']")
 # search_edit.send_keys("prueba selenium")
