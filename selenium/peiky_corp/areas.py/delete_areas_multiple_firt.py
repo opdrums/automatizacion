@@ -16,18 +16,13 @@ time.sleep(2)
 
 peiky.find_element_by_css_selector("#menu-areas").click()
 
-for x in range(1):
-    check  = peiky.find_elements_by_class_name("select_row")
-    if len(check) > 0:
-        check[0].click()
-        check[1].click()
-        check[2].click()
+check = peiky.find_element_by_id("select_main")
+check.click()
 
 buttons = peiky.find_element_by_id("btn_delete")
 buttons.click()
 
 punch_in = peiky.find_element_by_xpath("//button[@class='swal-button swal-button--confirm swal-button--danger']").click()
-
 time.sleep(5)
 
 peiky.close()
