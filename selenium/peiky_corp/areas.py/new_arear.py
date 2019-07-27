@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-peiky = webdriver.Chrome(executable_path=r"/home/omar/Escritorio/driver/chromedriver")
+peiky = webdriver.Chrome(executable_path=r"/home/omar/Escritorio/chromedriver")
 peiky.get("https://qa.peiky.com:9083/login")
 
 login = peiky.find_element_by_name("email")
