@@ -7,17 +7,18 @@ import time
 
 class DeleteArea(WithLogin):
     def test_delete_areas(self):
-        self.peiky.find_element_by_css_selector("#menu-areas").click()
-        search = self.peiky.find_element_by_xpath("//input[@type='search']")
-        search.send_keys("Wwwww")
-        select_area = self.peiky.find_element_by_css_selector(
+        browser = self.peiky
+        browser.find_element_by_css_selector("#menu-areas").click()
+        search = browser.find_element_by_css_selector("input[type = 'search']")
+        search.send_keys("two")
+        select_area = browser.find_element_by_css_selector(
             "input[class='select_row").click()
         time.sleep(2)
-        delete_area = self.peiky.find_element_by_css_selector(
+        delete_area = browser.find_element_by_css_selector(
             "a[class='btn btn-danger']").click()
 
-        alert = self.peiky.switch_to.alert
+        alert = browser.switch_to.alert
         time.sleep(2)
         alert.accept()
         time.sleep(2)
-        self.assertTrue(search)
+        self.assertIsNone(delete_area, "Area eliminada correctamente.")
