@@ -1,38 +1,30 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
+import os
 import time
-
-peiky = webdriver.Chrome(executable_path=r"/home/omar/Escritorio/driver/chromedriver")
-peiky.get("https://qa.peiky.com:9083/login")
-
-login = peiky.find_element_by_name("email")
-login.send_keys("omar.perez@peiky.com")
-# login.send_keys("omar.perez+12124@peiky.com")
-
-password = peiky.find_element_by_name("password")
-# password.send_keys("D0KXDU")
-password.send_keys("123456")
-password.send_keys(Keys.ENTER)
-time.sleep(2)
-
-peiky.find_element_by_css_selector("#menu-zonas").click()
-
-peiky.find_element_by_css_selector("a[href='/zones/new']").click()
+from test_utils import LoginUtil
 
 
-zones = peiky.find_element_by_id("division_name")
-zones.send_keys("zona 53")
+class LoginUnittests(LoginUtil):
+    def test_user_login(self):
+        self.user_login("omar.perez@peiky.com", os.getenv('EMAIL_PASSWORD'))
+        home = self.peiky.find_element_by_css_selector("a[href='/index']")
+        self.assertIsNotNone(home)
 
-file_company = Select(peiky.find_element_by_id("division_company_id"))
-file_company.select_by_value("6")
+    def test_login_incorrect(self):
+        self.user_login("omar.perez@peiky.com", "false password")
+        self.assertRaisesRegex(ValueError, "¡Error!")
 
-time.sleep(2)
-
-file_company = Select(peiky.find_element_by_id("division_parent_id"))
-file_company.select_by_value("54")
-
-peiky.find_element_by_css_selector("button").click()
-
-
-
+    def test_password_recovery(self):
+        browser = self.peiky
+        recovery = browser.find_element_by_css_selector(
+            "a[href='/pass/reset']")
+        recovery.click()
+        input_email = browser.find_element_by_css_selector(
+            "input[type='email']")
+        input_email.send_keys("oefperez1@gmail.com")
+        input_buttons = browser.find_element_by_css_selector(
+            "button[type='submit']")
+        input_buttons.click()
+        while self.assertTrue(input_buttons):
+            browser.find_element_by_css_selector(
+                "div[class='alert alert-success alert-dismissible']")
+        time.sleep(3)

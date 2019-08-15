@@ -1,11 +1,9 @@
 import unittest
 from login import *
-from new_areas import *
+from create_areas import *
 from delete_areas import *
-from delete_areas_firts_opcion import *
-from edit_area import *
-from multiple_areas_delete import *
-from multiple_areas import *
+from edit_areas import *
+from carga_masiva_areas import *
 
 
 def tearDown(self):
@@ -13,4 +11,4 @@ def tearDown(self):
 
 
 if __name__ == "__main__":
-    unittest.main(LoginUnittests())
+    unittest.main(EditArea())
